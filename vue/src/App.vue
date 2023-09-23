@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import HeaderLayout from 'src/layouts/HeaderLayout.vue';
+import { onMounted, ref } from 'vue';
+
 import { getProfile, type Profile } from 'src/requests/profile';
 import { isNil } from 'src/utils/type';
-import { onMounted, ref } from 'vue';
+
+import HeaderLayout from 'src/layouts/HeaderLayout.vue';
 
 const username = 'dev2820';
 const profileRef = ref<Profile | null>(null);

@@ -13,7 +13,17 @@ module.exports = {
     '@vue/typescript/recommended',
   ],
   rules: {
-    "simple-import-sort/imports": "error",
+    "simple-import-sort/imports": [
+      "error",
+      {
+        groups:[
+          ["^.+\\.s?css$"],
+          ["^vue$"],
+          ["^src/\\w"],
+          ["^src\/.*\.vue$"]
+        ]
+      }
+    ],
     "simple-import-sort/exports": "error",
     "import/first": "error",
     "import/newline-after-import": "error",
