@@ -1,7 +1,13 @@
 {
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "vetur.validation.template": false,
   "vetur.validation.script": false,
-  "vetur.validation.style": false
+  "vetur.validation.style": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "Vue.volar"
+  }
 }
