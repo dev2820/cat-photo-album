@@ -1,12 +1,21 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { getProfile, type Profile } from "src/requests/profile";
+import { isNil } from "src/utils/type";
 
 const username = "dev2820";
 const profileRef = ref<Profile | null>(null);
 
 const fetchProfile = async () => {
   profileRef.value = await getProfile(username);
+};
+
+const getUsername = (profile: Profile | null) => {
+  if (isNil(profile)) {
+    return "";
+  }
+
+  return profile.name;
 };
 
 onMounted(() => {
@@ -17,7 +26,7 @@ onMounted(() => {
 <template>
   <header>
     <strong>
-      {{ username }}
+      {{ getUsername(profileRef) }}
     </strong>
   </header>
   <div aria-label="profile">
