@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import HeaderLayout from 'src/layouts/HeaderLayout.vue';
 import { getProfile, type Profile } from 'src/requests/profile';
 import { isNil } from 'src/utils/type';
-
-import Header from 'src/layouts/Header.vue';
+import { onMounted, ref } from 'vue';
 
 const username = 'dev2820';
 const profileRef = ref<Profile | null>(null);
@@ -24,19 +23,25 @@ onMounted(() => {
   fetchProfile();
 });
 </script>
+
 <template>
-  <Header>
+  <HeaderLayout>
     <strong>
       {{ getUsername(profileRef) }}
     </strong>
-  </Header>
+  </HeaderLayout>
   <div aria-label="profile">
     <Suspense>
-      <img :src="profileRef?.avatarUrl" width="100" height="100" />
-      <template #fallback> 로딩... </template>
+      <img
+        :src="profileRef?.avatarUrl"
+        width="100"
+        height="100"
+      >
+      <template #fallback>
+        로딩...
+      </template>
     </Suspense>
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
