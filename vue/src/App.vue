@@ -9,7 +9,7 @@ const fetchProfile = async () => {
   profileRef.value = await getProfile(username);
 };
 
-onMounted(async () => {
+onMounted(() => {
   fetchProfile();
 });
 </script>
