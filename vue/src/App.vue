@@ -1,19 +1,28 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, shallowRef } from 'vue';
 
 import { getProfile, type Profile } from 'src/requests/profile';
 import { isNil } from 'src/utils/type';
 
+import UserProfile from 'src/components/profile/UserProfile.vue';
 import HeaderLayout from 'src/layouts/HeaderLayout.vue';
 
 const username = 'dev2820';
-const profileRef = ref<Profile | null>(null);
+const profileRef = shallowRef<Profile>({
+  name: '',
+  avatarUrl: '',
+  bio: '',
+  followers: 0,
+  following: 0,
+  repos: 0,
+  githubUrl: ''
+});
 
 const fetchProfile = async () => {
   profileRef.value = await getProfile(username);
 };
 
-const getUsername = (profile: Profile | null) => {
+const getUsername = (profile: Profile) => {
   if (isNil(profile)) {
     return '';
   }
@@ -28,22 +37,13 @@ onMounted(() => {
 
 <template>
   <HeaderLayout>
-    <strong>
+    <h2>
       {{ getUsername(profileRef) }}
-    </strong>
+    </h2>
   </HeaderLayout>
-  <div aria-label="profile">
-    <Suspense>
-      <img
-        :src="profileRef?.avatarUrl"
-        width="100"
-        height="100"
-      >
-      <template #fallback>
-        로딩...
-      </template>
-    </Suspense>
-  </div>
+  <UserProfile
+    :profile="profileRef"
+  />
 </template>
 
 <style scoped></style>
