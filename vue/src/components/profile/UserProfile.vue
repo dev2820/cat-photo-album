@@ -1,7 +1,7 @@
 *<script setup lang='ts'>
 import { toRefs } from "vue";
 
-import { type Profile } from "src/requests/profile";
+import { defaultProfile, type Profile } from "src/requests/profile";
 
 import RoundAvator from "./RoundAvator.vue";
 import TotalText from "./TotalText.vue";
@@ -11,15 +11,7 @@ interface Props {
 } 
 
 const props = withDefaults(defineProps<Props>(),{
-  profile: () => ({
-    name: '',
-    avatarUrl: '',
-    bio: '',
-    followers: 0,
-    following: 0,
-    repos: 0,
-    githubUrl:''
-  })
+  profile: () => defaultProfile
 })
 
 const { profile:profileRef } = toRefs(props)
@@ -35,7 +27,7 @@ const { profile:profileRef } = toRefs(props)
     />
     <div class="total">
       <TotalText
-        :total="profileRef.repos"
+        :total="profileRef.publicRepos"
         label="Repos"
       />
       <TotalText

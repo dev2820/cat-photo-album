@@ -6,9 +6,21 @@ export type Profile = {
   bio: string;
   followers:number;
   following:number;
-  repos: number;
+  publicRepos: number;
   githubUrl: string;
+  location: string;
 };
+
+export const defaultProfile = {
+  name: '',
+  avatarUrl: '',
+  bio: '',
+  followers: 0,
+  following: 0,
+  publicRepos: 0,
+  githubUrl: '',
+  location: ''
+}
 
 export const getProfile = async (userId: string): Promise<Profile> => {
   const res = await fetch(`https://api.github.com/users/${userId}`);
@@ -20,7 +32,8 @@ export const getProfile = async (userId: string): Promise<Profile> => {
     bio: data.bio,
     followers: data.followers,
     following: data.following,
-    repos: data.publicRepos,
-    githubUrl: data.htmlUrl
+    publicRepos: data.publicRepos,
+    githubUrl: data.htmlUrl,
+    location: data.location
   };
 };
