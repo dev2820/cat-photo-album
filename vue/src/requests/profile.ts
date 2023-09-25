@@ -2,8 +2,8 @@ export type RawProfile = {
   name: string;
   avatar_url: string;
   bio: string;
-  followers:number;
-  following:number;
+  followers: number;
+  following: number;
   public_repos: number;
   html_url: string;
   location: string;
@@ -20,19 +20,19 @@ export type Profile = {
   name: string;
   avatarUrl: string;
   bio: string;
-  followers:number;
-  following:number;
+  followers: number;
+  following: number;
   publicRepos: number;
   githubUrl: string;
   location: string;
-  login:string;
+  login: string;
 };
 
 export type Follower = {
   name: string;
   avatarUrl: string;
   githubUrl: string;
-}
+};
 
 export const defaultProfile = {
   name: '',
@@ -43,10 +43,10 @@ export const defaultProfile = {
   publicRepos: 0,
   githubUrl: '',
   location: '',
-  login: ''
-}
+  login: '',
+};
 
-const normalizeProfile = (rawProfile:RawProfile) => ({
+const normalizeProfile = (rawProfile: RawProfile) => ({
   avatarUrl: rawProfile.avatar_url,
   name: rawProfile.name,
   login: rawProfile.login,
@@ -55,28 +55,27 @@ const normalizeProfile = (rawProfile:RawProfile) => ({
   following: rawProfile.following,
   publicRepos: rawProfile.public_repos,
   githubUrl: rawProfile.html_url,
-  location: rawProfile.location
-})
+  location: rawProfile.location,
+});
 
-const normalizeFollower = (rawFollower:RawFollower) => ({
+const normalizeFollower = (rawFollower: RawFollower) => ({
   name: rawFollower.login,
   avatarUrl: rawFollower.avatar_url,
-  githubUrl: rawFollower.html_url
-})
+  githubUrl: rawFollower.html_url,
+});
 
 export const getProfile = async (userId: string): Promise<Profile> => {
   const res = await fetch(`https://api.github.com/users/${userId}`);
   const rawProfile = await res.json();
-  const profile = normalizeProfile(rawProfile)
-  
-  return profile
+  const profile = normalizeProfile(rawProfile);
 
+  return profile;
 };
 
 export const getFollowers = async (userId: string): Promise<Follower[]> => {
   const res = await fetch(`https://api.github.com/users/${userId}/followers`);
   const rawFollowers = await res.json();
-  const followers = rawFollowers.map(normalizeFollower)
+  const followers = rawFollowers.map(normalizeFollower);
 
-  return followers
-}
+  return followers;
+};
