@@ -65,6 +65,7 @@
   section[aria-labelledby='followers'] {
     display: flex;
     flex-direction: row;
+    margin: 1.5rem 0;
   }
   section[aria-labelledby='followers'] > * {
     margin: auto 0;
