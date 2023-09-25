@@ -1,7 +1,7 @@
 /**
  * object의 property들을 camelcase로 변경한다.
  */
-export const toCamel = <T extends Record<string, unknown>>(obj: T) => {
+export const toCamel = <T extends Record<string, any>>(obj: T) => {
   const result = Object.entries(obj).reduce((newObj, [key, value]) => {
     const capitalizer = (chunk: string) =>
       chunk.charAt(0).toUpperCase() + chunk.slice(1);
@@ -14,7 +14,7 @@ export const toCamel = <T extends Record<string, unknown>>(obj: T) => {
     newObj[camelKey] = value;
 
     return newObj;
-  }, {} as Record<string, unknown>);
+  }, {} as Record<string, any>);
 
   return result;
 };
