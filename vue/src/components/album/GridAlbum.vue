@@ -2,12 +2,14 @@
   import { onMounted, ref } from 'vue';
 
   import type { CatImage } from 'src/requests/cat-image';
+  import { toNumber } from 'src/utils/type';
 
   interface Props {
     images: CatImage[];
   }
   interface Emits {
     (e: 'loadNextImages'): void;
+    (e: 'clickImage', index: number): void;
   }
 
   const emit = defineEmits<Emits>();
@@ -26,14 +28,29 @@
     observer.observe($endOfAlbum.value);
   };
 
+  const onClickImage = (e: MouseEvent) => {
+    const $target = e.target as HTMLElement;
+    const $li = $target.closest('li');
+
+    if (!$li) return;
+
+    const imageIndex = toNumber($li.dataset['index']);
+    emit('clickImage', imageIndex);
+  };
+
   onMounted(() => {
     observeEndOfAlbum();
   });
 </script>
 
 <template>
-  <ul ref="$album">
-    <li v-for="(image, index) in images" :key="index" class="item">
+  <ul ref="$album" @click="onClickImage">
+    <li
+      v-for="(image, index) in images"
+      :key="index"
+      :data-index="index"
+      class="item"
+    >
       <img :src="image.url" />
     </li>
     <li ref="$endOfAlbum"></li>
@@ -52,11 +69,18 @@
     list-style: none;
     height: 152px;
     aspect-ratio: 1/1;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  li:hover > img {
+    transform: scale(1.2);
+    filter: brightness(0.6);
   }
   img {
     width: 100%;
     height: auto;
     aspect-ratio: 1/1;
     object-fit: cover;
+    transition: 0.2s;
   }
 </style>

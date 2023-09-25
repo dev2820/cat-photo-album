@@ -27,6 +27,11 @@
     return profile.name;
   };
 
+  const showImageLarge = (imageIndex: number) => {
+    const clickedImage = catImagesRef.value[imageIndex];
+    console.log(clickedImage);
+  };
+
   onMounted(() => {
     fetchFollowers();
     fetchProfile();
@@ -57,6 +62,7 @@
     <GridAlbum
       :images="catImagesRef"
       @load-next-images="loadNextImages"
+      @click-image="showImageLarge"
     ></GridAlbum>
   </section>
 </template>
