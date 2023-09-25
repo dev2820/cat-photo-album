@@ -3,9 +3,6 @@
 
   import { defaultProfile, type Profile } from 'src/requests/profile';
 
-  import GradientRingAvatar from './GradientRingAvatar.vue';
-  import TotalText from './TotalText.vue';
-
   interface Props {
     profile: Profile;
   }
@@ -18,42 +15,14 @@
 </script>
 
 <template>
-  <section class="user-summary">
-    <GradientRingAvatar
-      aria-label="avatar"
-      class="avatar"
-      :size="100"
-      :img-url="profileRef.avatarUrl"
-    />
-    <div class="total">
-      <TotalText :total="profileRef.publicRepos" label="Repos" />
-      <TotalText :total="profileRef.followers" label="Followers" />
-      <TotalText :total="profileRef.following" label="Following" />
-    </div>
-  </section>
-  <section class="user-detail">
-    <strong>{{ profileRef.name }}</strong>
-    <p>{{ profileRef.bio }}</p>
-    <a :href="profileRef.githubUrl" target="_blank">Link to Github</a>
-  </section>
+  <strong>{{ profileRef.name }}</strong>
+  <p class="text-week">{{ profileRef.location }}</p>
+  <p>{{ profileRef.bio }}</p>
+  <a :href="profileRef.githubUrl" target="_blank">Link to Github</a>
 </template>
 
 <style scoped>
-  .user-summary {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 0.625rem;
-  }
-  .user-summary > * {
-    margin: auto 0;
-  }
-
-  [aria-label='avatar'] {
-    margin-right: 4rem;
-  }
-  .total {
-    display: flex;
-    flex-direction: row;
-    gap: 0.75rem;
+  .text-week {
+    opacity: 0.75;
   }
 </style>

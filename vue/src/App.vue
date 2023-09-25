@@ -11,6 +11,7 @@
 
   import FollowersSummary from 'src/components/profile/FollowersSummary.vue';
   import UserProfile from 'src/components/profile/UserProfile.vue';
+  import UserProfileSummary from 'src/components/profile/UserProfileSummary.vue';
   import HeaderLayout from 'src/layouts/HeaderLayout.vue';
 
   const username = 'dev2820';
@@ -45,22 +46,48 @@
       {{ getUsername(profileRef) }}
     </h2>
   </HeaderLayout>
-  <UserProfile :profile="profileRef" />
-  <section aria-labelledby="followers-label">
-    <h3 id="followers-label">팔로워 요약</h3>
+
+  <section aria-labelledby="profile-summary">
+    <h3 id="profile-summary">프로필 요약</h3>
+    <UserProfileSummary :profile="profileRef" />
+  </section>
+  <section aria-labelledby="profile">
+    <h3 id="profile">프로필</h3>
+    <UserProfile :profile="profileRef" />
+  </section>
+  <section aria-labelledby="followers">
+    <h3 id="followers">팔로워 요약</h3>
     <FollowersSummary :followers="followersRef" />
   </section>
 </template>
 
 <style scoped>
-  section[aria-labelledby='followers-label'] {
+  section[aria-labelledby='followers'] {
     display: flex;
     flex-direction: row;
   }
-  section[aria-labelledby='followers-label'] > * {
+  section[aria-labelledby='followers'] > * {
     margin: auto 0;
   }
-  #followers-label {
+  section[aria-labelledby='profile-summary'] {
+    display: flex;
+    margin-bottom: 0.75rem;
+  }
+  section[aria-labelledby='profile'] {
+    margin-bottom: 1rem;
+  }
+  .user-summary {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.625rem;
+  }
+  .user-summary > * {
+    margin: auto 0;
+  }
+
+  #followers,
+  #profile-summary,
+  #profile {
     display: none;
   }
 </style>
