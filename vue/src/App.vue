@@ -14,6 +14,8 @@
   import UserProfileSummary from 'src/components/profile/UserProfileSummary.vue';
   import HeaderLayout from 'src/layouts/HeaderLayout.vue';
 
+  import GridAlbum from './components/\balbum/GridAlbum.vue';
+
   const username = 'dev2820';
   const profileRef = shallowRef<Profile>(defaultProfile);
   const followersRef = shallowRef<Follower[]>([]);
@@ -59,6 +61,10 @@
     <h3 id="followers">팔로워 요약</h3>
     <FollowersSummary :followers="followersRef" />
   </section>
+  <section aria-labelledby="album">
+    <h3 id="album">앨범</h3>
+    <GridAlbum></GridAlbum>
+  </section>
 </template>
 
 <style scoped>
@@ -87,7 +93,8 @@
 
   #followers,
   #profile-summary,
-  #profile {
+  #profile,
+  #album {
     display: none;
   }
 </style>

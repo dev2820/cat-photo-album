@@ -31,6 +31,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   max-width: 480px;
+  overflow-y:scroll;
 }
 
 h1 {
@@ -58,6 +59,11 @@ button:focus-visible {
 }
 
 p {
+  margin:0;
+}
+
+ul,li {
+  padding:0;
   margin:0;
 }
 
