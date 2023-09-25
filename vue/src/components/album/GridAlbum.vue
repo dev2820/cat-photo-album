@@ -1,28 +1,39 @@
 <script setup lang="ts">
   import { onMounted, ref } from 'vue';
 
-  import { useAlbum } from 'src/composables/album';
+  import type { CatImage } from 'src/requests/cat-image';
+
+  interface Props {
+    images: CatImage[];
+  }
+  interface Emits {
+    (e: 'loadNextImages'): void;
+  }
+
+  const emit = defineEmits<Emits>();
+  withDefaults(defineProps<Props>(), {
+    images: () => [],
+  });
 
   const $endOfAlbum = ref();
-  const { albumRef, loadNextPage } = useAlbum();
   const observer = new IntersectionObserver(([entry]) => {
     if (entry.isIntersecting) {
-      loadNextPage();
+      emit('loadNextImages');
     }
   });
+
   const observeEndOfAlbum = () => {
     observer.observe($endOfAlbum.value);
   };
 
   onMounted(() => {
     observeEndOfAlbum();
-    loadNextPage();
   });
 </script>
 
 <template>
   <ul ref="$album">
-    <li v-for="(image, index) in albumRef" :key="index" class="item">
+    <li v-for="(image, index) in images" :key="index" class="item">
       <img :src="image.url" />
     </li>
     <li ref="$endOfAlbum"></li>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { onMounted, shallowRef } from 'vue';
 
+  import { useCatAlbum } from 'src/composables/use-cat-album';
   import type { Follower, Profile } from 'src/requests/profile';
   import {
     defaultProfile,
@@ -9,12 +10,11 @@
   } from 'src/requests/profile';
   import { isNil } from 'src/utils/type';
 
+  import GridAlbum from 'src/components/album/GridAlbum.vue';
   import FollowersSummary from 'src/components/profile/FollowersSummary.vue';
   import UserProfile from 'src/components/profile/UserProfile.vue';
   import UserProfileSummary from 'src/components/profile/UserProfileSummary.vue';
   import HeaderLayout from 'src/layouts/HeaderLayout.vue';
-
-  import GridAlbum from './components/\balbum/GridAlbum.vue';
 
   const username = 'dev2820';
   const profileRef = shallowRef<Profile>(defaultProfile);
@@ -36,9 +36,12 @@
     return profile.name;
   };
 
+  const { catImagesRef, loadNextImages } = useCatAlbum();
+
   onMounted(() => {
     fetchProfile();
     fetchFollowers();
+    loadNextImages();
   });
 </script>
 
@@ -63,7 +66,10 @@
   </section>
   <section aria-labelledby="album">
     <h3 id="album">앨범</h3>
-    <GridAlbum></GridAlbum>
+    <GridAlbum
+      :images="catImagesRef"
+      @load-next-images="loadNextImages"
+    ></GridAlbum>
   </section>
 </template>
 

@@ -5,7 +5,7 @@ type GetImagesRequest = {
   page?: number;
 };
 
-export type Image = {
+export type CatImage = {
   height: number;
   width: number;
   id: string;
@@ -15,7 +15,7 @@ export type Image = {
 export const getImages = async ({
   limit = 10,
   page = 0,
-}: GetImagesRequest): Promise<Image[]> => {
+}: GetImagesRequest): Promise<CatImage[]> => {
   const res = await fetch(
     `https://api.thecatapi.com/v1/images/search?limit=${limit}&page=${page}`,
     {
