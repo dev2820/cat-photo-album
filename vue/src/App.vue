@@ -1,13 +1,10 @@
 <script setup lang="ts">
-  import { onMounted, shallowRef } from 'vue';
+  import { onMounted } from 'vue';
 
   import { useCatAlbum } from 'src/composables/use-cat-album';
-  import type { Follower, Profile } from 'src/requests/profile';
-  import {
-    defaultProfile,
-    getFollowers,
-    getProfile,
-  } from 'src/requests/profile';
+  import { useFollowers } from 'src/composables/use-followers';
+  import { useProfile } from 'src/composables/use-profile';
+  import type { Profile } from 'src/requests/profile';
   import { isNil } from 'src/utils/type';
 
   import GridAlbum from 'src/components/album/GridAlbum.vue';
@@ -17,16 +14,10 @@
   import HeaderLayout from 'src/layouts/HeaderLayout.vue';
 
   const username = 'dev2820';
-  const profileRef = shallowRef<Profile>(defaultProfile);
-  const followersRef = shallowRef<Follower[]>([]);
 
-  const fetchFollowers = async () => {
-    followersRef.value = await getFollowers(username);
-  };
-
-  const fetchProfile = async () => {
-    profileRef.value = await getProfile(username);
-  };
+  const { profileRef, fetchProfile } = useProfile(username);
+  const { followersRef, fetchFollowers } = useFollowers(username);
+  const { catImagesRef, loadNextImages } = useCatAlbum();
 
   const getUsername = (profile: Profile) => {
     if (isNil(profile)) {
@@ -36,11 +27,9 @@
     return profile.name;
   };
 
-  const { catImagesRef, loadNextImages } = useCatAlbum();
-
   onMounted(() => {
-    fetchProfile();
     fetchFollowers();
+    fetchProfile();
     loadNextImages();
   });
 </script>
@@ -51,7 +40,6 @@
       {{ getUsername(profileRef) }}
     </h2>
   </HeaderLayout>
-
   <section aria-labelledby="profile-summary">
     <h3 id="profile-summary">프로필 요약</h3>
     <UserProfileSummary :profile="profileRef" />
