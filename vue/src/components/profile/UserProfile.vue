@@ -56,8 +56,4 @@
     flex-direction: row;
     gap: 0.75rem;
   }
-
-  .user-detail {
-    text-align: left;
-  }
 </style>

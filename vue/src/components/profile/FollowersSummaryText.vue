@@ -23,9 +23,3 @@
   </p>
   <p v-else />
 </template>
-
-<style scoped>
-  p {
-    text-align: left;
-  }
-</style>

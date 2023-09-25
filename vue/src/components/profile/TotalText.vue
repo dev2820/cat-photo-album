@@ -1,21 +1,21 @@
-<script setup lang='ts'>
-import { toRefs } from 'vue';
+<script setup lang="ts">
+  import { toRefs } from 'vue';
 
-interface Props {
-  total: number;
-  label: string;
-}
+  interface Props {
+    total: number;
+    label: string;
+  }
 
-const props = withDefaults(defineProps<Props>(),{
-  total: 0,
-  label: ''
-})
+  const props = withDefaults(defineProps<Props>(), {
+    total: 0,
+    label: '',
+  });
 
-const { total, label } = toRefs(props)
+  const { total, label } = toRefs(props);
 
-const toLocale = (num:number) => {
+  const toLocale = (num: number) => {
     return num.toLocaleString();
-}
+  };
 </script>
 
 <template>
@@ -26,8 +26,9 @@ const toLocale = (num:number) => {
 </template>
 
 <style scoped>
-span {
-    display:flex;
-    flex-direction:column;
-}
+  span {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
 </style>

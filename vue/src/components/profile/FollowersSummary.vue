@@ -38,9 +38,6 @@
 </template>
 
 <style scoped>
-  .follower-summary-text {
-    text-align: left;
-  }
   .avatar-container {
     display: flex;
     flex-direction: row;
