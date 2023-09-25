@@ -46,9 +46,21 @@
     </h2>
   </HeaderLayout>
   <UserProfile :profile="profileRef" />
-  <section>
+  <section aria-labelledby="followers-label">
+    <h3 id="followers-label">팔로워 요약</h3>
     <FollowersSummary :followers="followersRef" />
   </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+  section[aria-labelledby='followers-label'] {
+    display: flex;
+    flex-direction: row;
+  }
+  section[aria-labelledby='followers-label'] > * {
+    margin: auto 0;
+  }
+  #followers-label {
+    display: none;
+  }
+</style>
