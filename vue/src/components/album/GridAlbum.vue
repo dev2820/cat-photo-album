@@ -62,25 +62,22 @@
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    box-sizing: content-box;
-    gap: 4px;
+    gap: 3px;
   }
   li {
     list-style: none;
-    height: 152px;
     aspect-ratio: 1/1;
     cursor: pointer;
     overflow: hidden;
   }
-  li:hover > img {
-    transform: scale(1.2);
-    filter: brightness(0.6);
-  }
   img {
     width: 100%;
-    height: auto;
     aspect-ratio: 1/1;
     object-fit: cover;
     transition: 0.2s;
+  }
+  img:hover {
+    transform: scale(1.2);
+    filter: brightness(0.6);
   }
 </style>
