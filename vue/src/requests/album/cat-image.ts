@@ -1,3 +1,5 @@
+import type { AlbumImage } from './types';
+
 const API_KEY = import.meta.env.VITE_CAT_API_KEY;
 
 type GetImagesRequest = {
@@ -5,17 +7,10 @@ type GetImagesRequest = {
   page?: number;
 };
 
-export type CatImage = {
-  height: number;
-  width: number;
-  id: string;
-  url: string;
-};
-
-export const getImages = async ({
+export const getCatImages = async ({
   limit = 10,
   page = 0,
-}: GetImagesRequest): Promise<CatImage[]> => {
+}: GetImagesRequest): Promise<AlbumImage[]> => {
   const res = await fetch(
     `https://api.thecatapi.com/v1/images/search?limit=${limit}&page=${page}`,
     {

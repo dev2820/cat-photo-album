@@ -3,7 +3,7 @@
 
   import { useFollowers } from 'src/composables/use-followers';
   import { useProfile } from 'src/composables/use-profile';
-  import type { CatImage } from 'src/requests/cat-image';
+  import type { AlbumImage } from 'src/requests/album';
   import type { Profile } from 'src/requests/profile';
   import { isNil } from 'src/utils/type';
 
@@ -41,7 +41,7 @@
     return profile.name;
   };
 
-  const onClickImage = (img: CatImage) => {
+  const onClickImage = (img: AlbumImage) => {
     console.log(img);
   };
 

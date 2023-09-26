@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { computed, ref } from 'vue';
 
-  import type { CatImage } from 'src/requests/cat-image';
+  import type { AlbumImage } from 'src/requests/album';
 
   import TabMenu from './TabMenu.vue';
   import type { Component } from 'vue';
@@ -15,7 +15,7 @@
   }
 
   interface Emits {
-    (e: 'clickImage', image: CatImage): void;
+    (e: 'clickImage', image: AlbumImage): void;
   }
 
   const props = withDefaults(defineProps<Props>(), {
@@ -33,7 +33,7 @@
     currentIndexRef.value = menuIndex;
   };
 
-  const onClickImage = (img: CatImage) => {
+  const onClickImage = (img: AlbumImage) => {
     emits('clickImage', img);
   };
 </script>

@@ -2,12 +2,12 @@
   import { onMounted } from 'vue';
 
   import { useCatAlbum } from 'src/composables/use-cat-album';
-  import { CatImage } from 'src/requests/cat-image';
+  import type { AlbumImage } from 'src/requests/album';
 
   import GridAlbum from './GridAlbum.vue';
 
   interface Emits {
-    (e: 'clickImage', img: CatImage): void;
+    (e: 'clickImage', img: AlbumImage): void;
   }
   const emits = defineEmits<Emits>();
 

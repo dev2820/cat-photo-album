@@ -1,11 +1,11 @@
 <script setup lang="ts">
   import { onMounted, ref } from 'vue';
 
-  import type { CatImage } from 'src/requests/cat-image';
+  import type { AlbumImage } from 'src/requests/album';
   import { toNumber } from 'src/utils/type';
 
   interface Props {
-    images: CatImage[];
+    images: AlbumImage[];
   }
   interface Emits {
     (e: 'loadNextImages'): void;
