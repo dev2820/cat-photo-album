@@ -13,11 +13,12 @@
   });
   const $container = ref();
   const getRandomColor = () => {
-    const r = toHex(randomInt(0, 255));
-    const g = toHex(randomInt(0, 255));
-    const b = toHex(randomInt(0, 255));
+    const r = toHex(randomInt(64, 255));
+    const g = toHex(randomInt(64, 255));
+    const b = toHex(randomInt(64, 255));
     return `#${r}${g}${b}`;
   };
+  const randomColor = getRandomColor();
   const isLoadingRef = ref(true);
   const onLoadImage = () => {
     isLoadingRef.value = false;
@@ -28,7 +29,7 @@
   <div
     ref="$container"
     :class="{ isLoading: isLoadingRef }"
-    :style="{ background: getRandomColor() }"
+    :style="{ background: randomColor }"
   >
     <img :src="src" :alt="alt" @load="onLoadImage" />
   </div>
@@ -36,19 +37,17 @@
 
 <style scoped>
   div.isLoading {
-    position: relative;
-    background: gray;
-    animation: skeleton 3s infinite;
+    animation: skeleton 3s infinite ease-in;
   }
   img {
     width: 100%;
-    aspect-ratio: 1/1;
+    height: 100%;
     object-fit: cover;
     transition: 0.2s;
     position: relative;
     opacity: 1;
   }
-  img.isLoading {
+  .isLoading > img {
     opacity: 0;
   }
   @keyframes skeleton {
