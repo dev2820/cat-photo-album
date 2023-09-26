@@ -4,6 +4,8 @@
   import type { AlbumImage } from 'src/requests/album';
   import { toNumber } from 'src/utils/type';
 
+  import SquareImage from 'src/components/atom/SquareImage.vue';
+
   interface Props {
     images: AlbumImage[];
   }
@@ -51,7 +53,7 @@
       :data-index="index"
       class="item"
     >
-      <img :src="image.url" />
+      <SquareImage class="img" :src="image.url"></SquareImage>
     </li>
     <li ref="$endOfAlbum"></li>
   </ul>
@@ -70,13 +72,13 @@
     cursor: pointer;
     overflow: hidden;
   }
-  img {
+  .img {
     width: 100%;
     aspect-ratio: 1/1;
     object-fit: cover;
     transition: 0.2s;
   }
-  img:hover {
+  .img:hover {
     transform: scale(1.2);
     filter: brightness(0.6);
   }
