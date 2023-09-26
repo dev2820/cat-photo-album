@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { onMounted } from 'vue';
+  import { onMounted, onUnmounted, ref } from 'vue';
 
   import { useFollowers } from 'src/composables/use-followers';
   import { useProfile } from 'src/composables/use-profile';
@@ -29,6 +29,8 @@
       screen: DogAlbum,
     },
   ];
+  const $modal = ref();
+  const selectedImageRef = ref<AlbumImage | undefined>();
 
   const getUsername = (profile: Profile) => {
     if (isNil(profile)) {
@@ -37,14 +39,31 @@
 
     return profile.name;
   };
-
+  const closeModal = () => {
+    $modal.value.classList.toggle('hidden');
+  };
   const onClickImage = (img: AlbumImage) => {
-    console.log(img);
+    $modal.value.classList.toggle('hidden');
+    selectedImageRef.value = img;
+  };
+
+  const onClickBackdrop = () => {
+    closeModal();
+  };
+
+  const onEscPressed = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
   };
 
   onMounted(() => {
     fetchFollowers();
     fetchProfile();
+    document.addEventListener('keydown', onEscPressed);
+  });
+  onUnmounted(() => {
+    document.removeEventListener('keydown', onEscPressed);
   });
 </script>
 
@@ -68,6 +87,43 @@
       <AlbumTabs :tabs="tabs" @click-image="onClickImage"></AlbumTabs>
     </template>
   </BaseLayout>
+  <div id="modal" ref="$modal" class="hidden" @click="onClickBackdrop">
+    <img
+      v-if="selectedImageRef"
+      id="modal-content"
+      :src="selectedImageRef.url"
+      :width="selectedImageRef.width"
+      :height="selectedImageRef.height"
+      @click.stop
+    />
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+  #modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px) brightness(50%);
+  }
+  #modal.hidden {
+    z-index: -1;
+    visibility: hidden;
+  }
+  #modal-content {
+    position: absolute;
+    background: #fff;
+    width: fit-content;
+    height: fit-content;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  #modal.hidden > #modal-content {
+    visibility: hidden;
+  }
+</style>
