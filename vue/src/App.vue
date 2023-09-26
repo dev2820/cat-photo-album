@@ -1,13 +1,14 @@
 <script setup lang="ts">
   import { onMounted } from 'vue';
 
-  import { useCatAlbum } from 'src/composables/use-cat-album';
   import { useFollowers } from 'src/composables/use-followers';
   import { useProfile } from 'src/composables/use-profile';
+  import type { CatImage } from 'src/requests/cat-image';
   import type { Profile } from 'src/requests/profile';
   import { isNil } from 'src/utils/type';
 
-  import GridAlbum from 'src/components/album/GridAlbum.vue';
+  import CatAlbum from 'src/components/album/CatAlbum.vue';
+  import AlbumTabs from 'src/components/atom/AlbumTabs.vue';
   import FollowersSummary from 'src/components/profile/FollowersSummary.vue';
   import UserProfile from 'src/components/profile/UserProfile.vue';
   import UserProfileSummary from 'src/components/profile/UserProfileSummary.vue';
@@ -17,8 +18,21 @@
 
   const { profileRef, fetchProfile } = useProfile(username);
   const { followersRef, fetchFollowers } = useFollowers(username);
-  const { catImagesRef, loadNextImages } = useCatAlbum();
+  const tabs = [
+    {
+      name: 'cat',
+      screen: CatAlbum,
+    },
+  ];
 
+  /**
+   * TODO: Dog API 연결 (VueQuery 사용할 것)
+   * TODO: ImageModal 생성 및 Teleport로 연결
+   * TODO: 스켈레톤 UI가 적용된 이미지 컴포넌트 만들기 (Vue2를 사용할 것)
+   * TODO: Image위에 canvas text를 얹을 수 있는 기능 만들기 (v-model) 사용
+   * TODO: Image 다운로드 기능 만들기
+   * TODO: Vuex 쓰기
+   */
   const getUsername = (profile: Profile) => {
     if (isNil(profile)) {
       return '';
@@ -27,15 +41,13 @@
     return profile.name;
   };
 
-  const showImageLarge = (imageIndex: number) => {
-    const clickedImage = catImagesRef.value[imageIndex];
-    console.log(clickedImage);
+  const onClickImage = (img: CatImage) => {
+    console.log(img);
   };
 
   onMounted(() => {
     fetchFollowers();
     fetchProfile();
-    loadNextImages();
   });
 </script>
 
@@ -56,11 +68,7 @@
       <FollowersSummary :followers="followersRef" />
     </template>
     <template #album>
-      <GridAlbum
-        :images="catImagesRef"
-        @load-next-images="loadNextImages"
-        @click-image="showImageLarge"
-      ></GridAlbum>
+      <AlbumTabs :tabs="tabs" @click-image="onClickImage"></AlbumTabs>
     </template>
   </BaseLayout>
 </template>
