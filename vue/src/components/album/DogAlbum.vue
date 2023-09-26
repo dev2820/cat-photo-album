@@ -11,7 +11,7 @@
   }
   const emits = defineEmits<Emits>();
 
-  const { dogImagesRef, loadNextImages } = useDogAlbum();
+  const { imagesRef: dogImagesRef, loadNextImages } = useDogAlbum();
 
   const onClickImage = (imgIndex: number) => {
     emits('clickImage', dogImagesRef.value[imgIndex]);

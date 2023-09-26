@@ -11,7 +11,7 @@
   }
   const emits = defineEmits<Emits>();
 
-  const { catImagesRef, loadNextImages } = useCatAlbum();
+  const { imagesRef: catImagesRef, loadNextImages } = useCatAlbum();
 
   const onClickImage = (imgIndex: number) => {
     emits('clickImage', catImagesRef.value[imgIndex]);
