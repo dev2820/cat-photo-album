@@ -30,14 +30,6 @@
     },
   ];
 
-  /**
-   * TODO: Dog API 연결 (VueQuery 사용할 것)
-   * TODO: ImageModal 생성 및 Teleport로 연결
-   * TODO: 스켈레톤 UI가 적용된 이미지 컴포넌트 만들기 (Vue2를 사용할 것)
-   * TODO: Image위에 canvas text를 얹을 수 있는 기능 만들기 (v-model) 사용
-   * TODO: Image 다운로드 기능 만들기
-   * TODO: Vuex 쓰기
-   */
   const getUsername = (profile: Profile) => {
     if (isNil(profile)) {
       return '';
