@@ -3,7 +3,7 @@
 
   import type { AlbumImage } from 'src/requests/album';
 
-  import TabMenu from './TabMenu.vue';
+  import TabMenu from '../atom/TabMenu.vue';
   import type { Component } from 'vue';
 
   interface Props {
@@ -33,6 +33,10 @@
     currentIndexRef.value = menuIndex;
   };
 
+  const currentScreen = computed(() => {
+    return props.tabs[currentIndexRef.value].screen;
+  });
+
   const onClickImage = (img: AlbumImage) => {
     emits('clickImage', img);
   };
@@ -46,10 +50,7 @@
       </template>
     </TabMenu>
     <KeepAlive>
-      <component
-        :is="tabs[initTabIndex].screen"
-        @click-image="onClickImage"
-      ></component>
+      <component :is="currentScreen" @click-image="onClickImage"></component>
     </KeepAlive>
   </div>
 </template>

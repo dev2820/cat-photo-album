@@ -7,8 +7,9 @@
   import type { Profile } from 'src/requests/profile';
   import { isNil } from 'src/utils/type';
 
+  import AlbumTabs from 'src/components/album/AlbumTabs.vue';
   import CatAlbum from 'src/components/album/CatAlbum.vue';
-  import AlbumTabs from 'src/components/atom/AlbumTabs.vue';
+  import DogAlbum from 'src/components/album/DogAlbum.vue';
   import FollowersSummary from 'src/components/profile/FollowersSummary.vue';
   import UserProfile from 'src/components/profile/UserProfile.vue';
   import UserProfileSummary from 'src/components/profile/UserProfileSummary.vue';
@@ -22,6 +23,10 @@
     {
       name: 'cat',
       screen: CatAlbum,
+    },
+    {
+      name: 'dog',
+      screen: DogAlbum,
     },
   ];
 
