@@ -1,0 +1,11 @@
+section > h3 {
+  display:none
+}
+
+[aria-labelledby="profile-summary"] {
+  margin-bottom: 1rem;
+}
+
+[aria-labelledby="followers"] {
+  margin: 0.5rem 0;
+}

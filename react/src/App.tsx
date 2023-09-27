@@ -1,35 +1,93 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { MouseEventHandler, useEffect, useRef, useState } from "react"; 
+
+import { BaseLayout } from "src/layouts/BaseLayout"
+import { Section } from "src/layouts/Section"
+import { ProfileDetail ,ProfileSummary, FollowerList } from "src/components/profile"
+import { TabScreen } from "src/components/album"
+
+import type { Profile,Follower } from "src/requests/profile";
+import { getProfile, defaultProfile, getFollowers } from "src/requests/profile";
+
 import './App.css'
+import { AlbumImage } from "./requests/album";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const username = "dev2820";
+  const [profile, setProfile] = useState<Profile>(defaultProfile)
+  const [followers, setFollowers] = useState<Follower[]>([])
+  const [selectedImage, setSelectedImage] = useState<AlbumImage|undefined>()
+  const $modal = useRef(null);
+
+  const fetchProfile = async () => {
+    const profile = await getProfile(username)
+    setProfile(profile)
+  }
+
+  const fetchFollowers = async () => {
+    const followers = await getFollowers(username)
+    setFollowers(followers)
+  }
+
+  const onClickBackdrop = () => {
+    if($modal.current) {
+      const $target = $modal.current as HTMLDivElement;
+      $target.classList.toggle('hidden');
+      setSelectedImage(undefined);
+    }
+  }
+  const onClickImage = (image:AlbumImage) => {
+    setSelectedImage(image);
+    if($modal.current) {
+      const $target = $modal.current as HTMLDivElement;
+      $target.classList.toggle('hidden');
+    }
+  }
+  const stopPropagation:MouseEventHandler<HTMLImageElement> = (e) => {
+    e.stopPropagation();
+  }
+
+  useEffect(()=>{
+    fetchProfile();
+    fetchFollowers();
+  },[])
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <BaseLayout>
+        <Header title={username}></Header>
+        <Section title="profile-summary">
+          <ProfileSummary profile={profile}></ProfileSummary>
+        </Section>
+        <Section title="profile">
+          <ProfileDetail profile={profile}></ProfileDetail>
+        </Section>
+        <Section title="followers">
+          <FollowerList followers={followers}></FollowerList>
+        </Section>
+        <Section title="album">
+          <TabScreen onClickImage={onClickImage}></TabScreen>
+        </Section>
+      </BaseLayout>
+      <div id="modal" ref={$modal} className="hidden" onClick={onClickBackdrop}>
+        {
+          selectedImage && 
+            <img
+            id="modal-content"
+            src={selectedImage.url}
+            width={selectedImage.width}
+            height={selectedImage.height}
+            onClick={stopPropagation}
+          />
+        }
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
+}
+
+const Header = ({ title }:{ title: string}) => {
+  return (<>
+    <h2>{title}</h2>
+  </>)
 }
 
 export default App

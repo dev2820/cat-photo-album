@@ -1,0 +1,16 @@
+.gradient-ring-avatar {
+  position:relative;
+}
+.gradient-ring {
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%)
+}
+.avatar {
+  position:absolute;
+  border-radius: 9999px;
+  left:50%;
+  top:50%;
+  transform: translate(-50%,-50%);
+}

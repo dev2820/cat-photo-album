@@ -1,0 +1,12 @@
+.total-list {
+  display:flex;
+  flex-direction:row;
+  gap:1rem;
+}
+
+.total {
+  display:flex;
+  flex-direction:column;
+  text-align:center;
+  margin:auto 0;
+}

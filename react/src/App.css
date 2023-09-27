@@ -1,8 +1,8 @@
 #root {
-  max-width: 1280px;
+  max-width: 480px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  text-align: left;
 }
 
 .logo {
@@ -39,4 +39,35 @@
 
 .read-the-docs {
   color: #888;
+}
+
+p {
+  margin:0;
+}
+
+#modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px) brightness(50%);
+}
+#modal.hidden {
+  z-index: -1;
+  visibility: hidden;
+}
+#modal-content {
+  position: absolute;
+  background: #fff;
+  width: fit-content;
+  height: fit-content;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#modal.hidden > #modal-content {
+  visibility: hidden;
 }
