@@ -27,7 +27,7 @@
 </script>
 
 <template>
-  <main>
+  <div>
     <v-section label="repositories">
       <ul>
         <li v-for="repo in publicRepos" :key="repo.id">
@@ -36,7 +36,7 @@
         <li id="fetch-trigger" v-if="!isEndOfPage" ref="$fetchTrigger" aria-hidden></li>
       </ul>
     </v-section>
-  </main>
+  </div>
 </template>
 
 <style scoped>

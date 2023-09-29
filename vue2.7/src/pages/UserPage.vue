@@ -51,8 +51,11 @@
 
   header {
     line-height: 1.5;
-    max-height: 100vh;
     width: 100%;
+    position: sticky;
+    top: 0;
+    background: var(--color-background-soft);
+    padding: 1rem 0;
   }
 
   h1 {
