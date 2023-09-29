@@ -1,3 +1,5 @@
+const TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
+
 const normalizerProfile = (rawProfile) => {
   return {
     name: rawProfile.name,
@@ -13,19 +15,39 @@ const normalizerProfile = (rawProfile) => {
   };
 };
 
-const toJson = (res) => res.json();
-
 export const fetchProfile = async (userId) => {
-  const rawData = await fetch(`https://api.github.com/users/${userId}`).then(toJson);
-  const data = normalizerProfile(rawData);
+  try {
+    const response = await fetch(`/api/users/${userId}`, {
+      headers: {
+        Accept: 'application/vnd.github+json',
+        Autorization: `Bearer ${TOKEN}`
+      }
+    });
+    if (!response.ok) throw response;
 
-  return data;
+    const rawData = await response.json();
+    const data = normalizerProfile(rawData);
+
+    return { userExist: true, ...data };
+  } catch (e) {
+    if (e.status === 404) {
+      return { userExist: false };
+    }
+    if (e.status >= 500) {
+      const errData = await e.json();
+      alert(errData.message);
+    }
+
+    console.log(e);
+  }
 };
 
 export const fetchRepos = async (userId, { page = 1 }) => {
-  const rawData = await fetch(`https://api.github.com/users/${userId}/repos?page=${page}`).then(
-    toJson
-  );
+  const rawData = await fetch(`/api/users/${userId}/repos?page=${page}`, {
+    headers: {
+      Autorization: `Bearer ${TOKEN}`
+    }
+  }).then((res) => res.json());
 
   return rawData;
 };

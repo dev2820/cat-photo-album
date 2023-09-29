@@ -1,12 +1,12 @@
 <script setup></script>
 
 <template>
-  <div id="app">
+  <main id="app">
     <slot name="header"></slot>
     <slot name="navigator"></slot>
     <slot></slot>
     <slot name="footer"></slot>
-  </div>
+  </main>
 </template>
 
 <style scoped></style>

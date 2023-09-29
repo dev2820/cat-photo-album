@@ -6,6 +6,7 @@ export const useProfile = (userId) => {
 
   onMounted(async () => {
     const data = await fetchProfile(userId);
+
     profile.value = data;
   });
 

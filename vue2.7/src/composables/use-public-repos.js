@@ -1,4 +1,4 @@
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { fetchRepos } from 'src/requests/profile';
 
 const LIMIT = 30;
@@ -8,10 +8,6 @@ export const usePublicRepos = (userId) => {
   const isLoading = ref(false);
   const isEndOfPage = ref(false);
   const publicRepos = ref([]);
-
-  onMounted(async () => {
-    fetchNextPage(userId);
-  });
 
   const fetchNextPage = async () => {
     try {

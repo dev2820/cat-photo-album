@@ -1,23 +1,34 @@
 import VueRouter from 'vue-router';
-import ProfilePage from 'src/pages/ProfilePage.vue';
+import HomePage from 'src/pages/HomePage.vue';
 
 const router = new VueRouter({
   mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'profile',
-      component: ProfilePage
+      name: 'home',
+      component: HomePage
     },
     {
-      path: '/repos',
-      name: 'repos',
-      component: () => import('src/pages/RepositoryPage.vue')
-    },
-    {
-      path: '/follower',
-      name: 'follower',
-      component: () => import('src/pages/FollowerPage.vue')
+      path: '/:user/',
+      component: () => import('src/pages/UserPage.vue'),
+      children: [
+        {
+          path: '',
+          name: 'profile',
+          component: () => import('src/pages/ProfilePage.vue')
+        },
+        {
+          path: 'repos',
+          name: 'repos',
+          component: () => import('src/pages/RepositoryPage.vue')
+        },
+        {
+          path: 'follower',
+          name: 'follower',
+          component: () => import('src/pages/FollowerPage.vue')
+        }
+      ]
     }
   ]
 });

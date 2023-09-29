@@ -2,11 +2,13 @@
   import { ref, onUnmounted, onMounted } from 'vue';
   import { usePublicRepos } from 'src/composables/use-public-repos';
   import VSection from 'src/components/atoms/VSection.vue';
+  import router from 'src/router';
 
-  const username = 'dev2820';
+  const username = router.currentRoute.params.user;
   const { publicRepos, fetchNextPage, isEndOfPage, isLoading } = usePublicRepos(username);
   const $fetchTrigger = ref(null);
   const observer = new IntersectionObserver(([entry]) => {
+    console.log(isLoading.value, entry.isIntersecting);
     if (!entry.isIntersecting) return;
     if (isLoading.value) return;
 
@@ -20,7 +22,7 @@
   });
 
   onUnmounted(() => {
-    observer.unobserve($fetchTrigger.value);
+    observer.disconnect();
   });
 </script>
 
@@ -31,7 +33,7 @@
         <li v-for="repo in publicRepos" :key="repo.id">
           {{ repo.name }}
         </li>
-        <li v-if="!isEndOfPage" ref="$fetchTrigger" aria-hidden></li>
+        <li id="fetch-trigger" v-if="!isEndOfPage" ref="$fetchTrigger" aria-hidden></li>
       </ul>
     </v-section>
   </main>
@@ -64,5 +66,10 @@
     flex-direction: column;
     gap: 0.5rem;
     margin-bottom: 1.5rem;
+  }
+
+  #fetch-trigger {
+    display: block;
+    height: 240px;
   }
 </style>

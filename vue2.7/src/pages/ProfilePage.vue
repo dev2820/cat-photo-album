@@ -6,9 +6,10 @@
   import ItemCount from 'src/components/profile/ItemCount.vue';
   import VSection from 'src/components/atoms/VSection.vue';
   import VLabel from 'src/components/atoms/VLabel.vue';
+  import router from 'src/router';
 
-  const username = 'dev2820';
-  const { profile } = useProfile(username);
+  const username = computed(() => router.currentRoute.params.user);
+  const { profile } = useProfile(username.value);
 
   const avatarAttrs = computed(() => ({
     src: profile.value.avatarUrl,
@@ -16,39 +17,43 @@
     width: 140,
     height: 140
   }));
-
   const createdAt = computed(() => timeToYYYYMMDD(new Date(profile.value.createdAt)));
 </script>
 
 <template>
-  <main v-if="profile">
+  <div v-if="profile && profile.userExist" id="profile-page">
     <big-avatar id="avatar" v-bind="avatarAttrs"></big-avatar>
     <h2>{{ profile.name }}</h2>
     <v-section label="bio" id="bio">
       <p>{{ profile.bio }}</p>
     </v-section>
     <v-section label="summary" id="summary">
-      <item-count class="count" :count="profile.totalPublicRepos" :label="'Repos'"></item-count>
-      <item-count class="count" :count="profile.totalFollowers" :label="'Followers'"></item-count>
+      <item-count
+        class="count"
+        :count="profile.totalPublicRepos"
+        :label="'Repository'"
+      ></item-count>
+      <item-count class="count" :count="profile.totalFollowers" :label="'Follower'"></item-count>
       <item-count class="count" :count="profile.totalFollowing" :label="'Following'"></item-count>
     </v-section>
     <div class="card meta-container">
       <v-section label="meta" id="meta">
         <v-label :icon="'calendar'" :text="createdAt"></v-label>
-        <v-label :icon="'map-pin'" :text="profile.location"></v-label>
+        <v-label v-if="profile.location" :icon="'map-pin'" :text="profile.location"></v-label>
         <a :href="profile.githubUrl" target="_blank">
           <v-label :icon="'github-mark-white'" :text="'github'"></v-label>
         </a>
       </v-section>
     </div>
-  </main>
+  </div>
 </template>
 
 <style scoped>
-  main {
+  #profile-page {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
   }
 
   #avatar {
@@ -91,15 +96,5 @@
   }
   .meta-container {
     width: 100%;
-  }
-  .card {
-    border-radius: 0.75rem;
-    padding: 2rem;
-    box-shadow:
-      inset 0 0 0.5px 1px hsla(0, 0%, 100%, 0.1),
-      0 0 0 1px hsla(230, 13%, 9%, 0.075),
-      0 0.3px 0.4px hsla(230, 13%, 9%, 0.02),
-      0 0.9px 1.5px hsla(230, 13%, 9%, 0.045),
-      0 3.5px 6px hsla(230, 13%, 9%, 0.09);
   }
 </style>
