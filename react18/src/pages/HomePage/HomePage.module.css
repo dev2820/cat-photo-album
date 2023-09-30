@@ -1,0 +1,28 @@
+.header {
+  margin-bottom: 3rem;
+}
+
+.title {
+  word-break: keep-all;
+  text-align: center;
+}
+
+.main {
+  width: 100%;
+}
+
+.fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.text-field {
+  height: 3.5rem;
+  width: 100%;
+}
+
+.button__search {
+  height: 3.5rem;
+  background: var(--primary-color);
+}
