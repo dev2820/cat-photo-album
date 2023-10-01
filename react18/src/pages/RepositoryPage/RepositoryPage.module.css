@@ -1,0 +1,58 @@
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 1rem;
+}
+
+.not-found {
+  text-align: center;
+}
+
+.list-item {
+  margin: 1rem 0;
+}
+
+.load-more-button {
+  padding: 1rem 2rem;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
+  margin-top: 3rem;
+}
+
+.visit-button {
+  color: var(--primary-color);
+}
+.repository {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.repository__info {
+  flex-grow: 1;
+}
+.repository__info {
+  flex-grow: 1;
+}
+.repository__name {
+  font-size: 1.5rem;
+}
+.repository__description {
+  margin: 1rem 0;
+}
+.owner {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+.created-at {
+  color: var(--default-text-color__week);
+}
+.link {
+  color: var(--default-text-color);
+}
+.link:hover {
+  color: var(--default-text-color);
+  text-decoration: underline;
+}

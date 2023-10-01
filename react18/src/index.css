@@ -1,9 +1,12 @@
 :root {
   --primary-color: #646cff;
+  --normal-color: rgba(71, 71, 71, 0.87);
   --border-color: rgba(84, 84, 84, 0.48);
   --background-color: #242424;
   --background-soft-color: #303030;
+  --normal-text-color: rgba(255, 255, 255, 0.87);
   --default-text-color: rgba(255, 255, 255, 0.87);
+  --default-text-color__week: rgba(255, 255, 255, 0.44);
   --default-text-color__disabled: rgba(255, 255, 255, 0.44);
 }
 
@@ -34,11 +37,9 @@ a {
   color: var(--primary-color);
   text-decoration: inherit;
 }
-a:hover {
-  color: #535bf2;
-}
 
 body {
+  position: relative;
   margin: 0 auto;
   display: flex;
   flex-direction: column;

@@ -1,6 +1,6 @@
 import { MouseEventHandler } from 'react';
 
-import { BaseLayout } from 'src/layouts/BaseLayout';
+import { HomeLayout } from 'src/layouts/HomeLayout';
 import { Form, Button } from 'src/components/atoms';
 import { useKeyword } from 'src/hooks/use-keyword';
 import { useSearch } from 'src/hooks/use-search';
@@ -21,11 +21,9 @@ export function HomePage() {
   };
 
   return (
-    <BaseLayout className={style['_']}>
-      <header className={style['header']}>
-        <h1 className={style.title}>github 아이디를 입력해 유저를 검색하세요</h1>
-      </header>
+    <HomeLayout>
       <main className={style['main']}>
+        <h1 className={style['title']}>github 아이디를 입력해 유저를 검색하세요</h1>
         <Form.FieldSet className={style['fieldset']}>
           <Form.TextField
             placeholder="github id를 입력하세요"
@@ -39,7 +37,6 @@ export function HomePage() {
           </Button>
         </Form.FieldSet>
       </main>
-      <footer></footer>
-    </BaseLayout>
+    </HomeLayout>
   );
 }

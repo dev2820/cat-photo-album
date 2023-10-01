@@ -1,24 +1,23 @@
-import { useEffect, useState } from 'react';
-import { fetchProfile, type Profile } from 'src/requests/profile';
+import useSWR from 'swr';
+
+import { fetchProfile } from 'src/requests/profile';
 
 export type { Profile } from 'src/requests/profile';
 
 export function useProfile(userId: string) {
-  const [profile, setProfile] = useState<Profile | undefined>();
+  const { data, error, isLoading } = useSWR(userId, fetchProfile, {
+    onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+      if (error.status === 404) return;
+      if (error.status === 403) return;
+      if (retryCount >= 5) return;
 
-  async function updateProfile(userId: string) {
-    const response = await fetchProfile(userId);
-    if (response.dataExist) {
-      setProfile(response.data);
+      setTimeout(() => revalidate({ retryCount }), 5000);
     }
-  }
-
-  useEffect(() => {
-    updateProfile(userId);
-  }, [userId]);
+  });
 
   return {
-    profile,
-    updateProfile
+    profile: data,
+    isLoading,
+    error
   };
 }

@@ -1,0 +1,16 @@
+.chip {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.7rem;
+  border-radius: 9999px;
+}
+
+.border {
+  border: 1px solid var(--border-color);
+}
+
+.normal {
+  background-color: var(--normal-color);
+  color: var(--normal-text-color);
+}

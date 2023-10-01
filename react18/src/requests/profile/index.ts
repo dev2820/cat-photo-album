@@ -13,22 +13,13 @@ type RawProfile = {
   location: string;
 };
 
-type Success<T> = {
-  dataExist: true;
-  data: T;
-};
-
-type Failed = {
-  dataExist: false;
-};
-
 export type Profile = {
   name: string;
   avatarUrl: string;
   githubUrl: string;
   bio: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
   totalFollowers: number;
   totalFollowing: number;
   totalPublicRepos: number;
@@ -41,8 +32,8 @@ const normalizerProfile = (rawProfile: RawProfile) => {
     avatarUrl: rawProfile.avatar_url,
     githubUrl: rawProfile.html_url,
     bio: rawProfile.bio,
-    createdAt: rawProfile.created_at,
-    updatedAt: rawProfile.updated_at,
+    createdAt: new Date(rawProfile.created_at),
+    updatedAt: new Date(rawProfile.updated_at),
     totalFollowers: rawProfile.followers,
     totalFollowing: rawProfile.following,
     totalPublicRepos: rawProfile.public_repos,
@@ -50,43 +41,16 @@ const normalizerProfile = (rawProfile: RawProfile) => {
   };
 };
 
-export const fetchProfile = async (userId: string): Promise<Success<Profile> | Failed> => {
-  try {
-    const response = await fetch(`/api/users/${userId}`, {
-      headers: {
-        Accept: 'application/vnd.github+json',
-        Autorization: `Bearer ${TOKEN}`
-      }
-    });
-    if (!response.ok) throw response;
-
-    const rawData = await response.json();
-    const data = normalizerProfile(rawData);
-
-    return { dataExist: true, data };
-  } catch (e) {
-    if (e instanceof Response && e.status === 404) {
-      return { dataExist: false };
-    }
-    if (e instanceof Response && e.status >= 500) {
-      const errData = await e.json();
-      alert(errData.message);
-
-      return { dataExist: false };
-    }
-
-    console.error(e);
-    return { dataExist: false };
-  }
-};
-
-export const fetchRepos = async (userId: string, { page = 1 }) => {
-  const rawData = await fetch(`/api/users/${userId}/repos?page=${page}`, {
+export const fetchProfile = async (userId: string): Promise<Profile> => {
+  const response = await fetch(`/api/users/${userId}`, {
     headers: {
       Accept: 'application/vnd.github+json',
       Autorization: `Bearer ${TOKEN}`
     }
-  }).then((res) => res.json());
+  });
+  if (!response.ok) throw response;
 
-  return rawData;
+  const rawData = await response.json();
+  const data = normalizerProfile(rawData);
+  return data;
 };

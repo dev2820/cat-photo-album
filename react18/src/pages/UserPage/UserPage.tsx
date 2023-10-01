@@ -55,6 +55,7 @@ export function UserPage() {
       <main className={style['main']}>
         <Outlet></Outlet>
       </main>
+      <footer className={style['footer']}></footer>
     </BaseLayout>
   );
 }
