@@ -1,8 +1,8 @@
-import { HTMLAttributes } from 'react';
+import { ButtonHTMLAttributes } from 'react';
 
 import style from './Button.module.css';
 
-interface Props extends HTMLAttributes<HTMLButtonElement> {}
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
 export function Button({ children, className, ...props }: Props) {
   return (

@@ -1,0 +1,40 @@
+.header {
+  width: 100%;
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+  background: var(--background-color);
+}
+
+.fieldset {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.text-field {
+  width: 100%;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.nav-item {
+  padding: 0 1rem;
+  border-right: 1px solid var(--border-color);
+}
+.nav-item:last-child {
+  border: none;
+}
+
+.nav__active,
+.nav__active:hover {
+  color: var(--default-text-color__disabled);
+  cursor: default;
+}
+
+.main {
+  width: 100%;
+}

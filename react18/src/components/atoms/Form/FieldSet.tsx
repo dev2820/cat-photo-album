@@ -1,8 +1,8 @@
-import { HTMLAttributes } from 'react';
+import { FieldsetHTMLAttributes } from 'react';
 
 import style from './index.module.css';
 
-interface Props extends HTMLAttributes<HTMLFieldSetElement> {}
+interface Props extends FieldsetHTMLAttributes<HTMLFieldSetElement> {}
 
 export function FieldSet({ children, className, ...props }: Props) {
   return (

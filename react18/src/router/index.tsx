@@ -1,8 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { HomePage } from '../pages/HomePage';
-import { UserPage } from '../pages/UserPage';
-
 import { App } from 'src/App';
+import { HomePage } from 'src/pages/HomePage';
+import { UserPage } from 'src/pages/UserPage';
 import { ProfilePage } from 'src/pages/ProfilePage';
 import { RepositoryPage } from 'src/pages/RepositoryPage';
 import { FollowerPage } from 'src/pages/FollowerPage';

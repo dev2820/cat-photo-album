@@ -1,26 +1,18 @@
-import { FormEventHandler, MouseEventHandler, useState } from 'react';
+import { MouseEventHandler } from 'react';
 
-import { HomeLayout } from 'src/layouts/HomeLayout';
+import { BaseLayout } from 'src/layouts/BaseLayout';
 import { Form, Button } from 'src/components/atoms';
-import { keyboardEnterHandler } from 'src/utils/event';
-import { useNavigate } from 'react-router-dom';
+import { useKeyword } from 'src/hooks/use-keyword';
+import { useSearch } from 'src/hooks/use-search';
+import { handleEnter } from 'src/utils/event';
 
 import style from './HomePage.module.css';
 
 export function HomePage() {
-  const [keyword, setKeyword] = useState('');
-  const navigate = useNavigate();
+  const { keyword, handleInputKeyword } = useKeyword();
+  const { search } = useSearch();
 
-  const search = (keyword: string) => {
-    navigate(`/${keyword}`);
-  };
-
-  const handleSearchInput: FormEventHandler = (e) => {
-    const $target = e.target as HTMLInputElement;
-    setKeyword($target.value);
-  };
-
-  const handleEnterSearch = keyboardEnterHandler(() => {
+  const handleEnterTextField = handleEnter(() => {
     search(keyword);
   });
 
@@ -29,7 +21,7 @@ export function HomePage() {
   };
 
   return (
-    <HomeLayout>
+    <BaseLayout className={style['_']}>
       <header className={style['header']}>
         <h1 className={style.title}>github 아이디를 입력해 유저를 검색하세요</h1>
       </header>
@@ -39,8 +31,8 @@ export function HomePage() {
             placeholder="github id를 입력하세요"
             className={style['text-field']}
             value={keyword}
-            onChange={handleSearchInput}
-            onKeyUp={handleEnterSearch}
+            onChange={handleInputKeyword}
+            onKeyUp={handleEnterTextField}
           ></Form.TextField>
           <Button className={style['button__search']} onClick={handleClickSearch}>
             검색
@@ -48,6 +40,6 @@ export function HomePage() {
         </Form.FieldSet>
       </main>
       <footer></footer>
-    </HomeLayout>
+    </BaseLayout>
   );
 }
