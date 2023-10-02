@@ -20,13 +20,6 @@
 }
 
 .button__search {
-  text-align: center;
   height: 3.5rem;
   background: var(--primary-color);
-  margin-bottom: 2rem;
-}
-
-.footer > p {
-  text-align: center;
-  margin-bottom: 1rem;
 }

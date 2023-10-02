@@ -11,7 +11,7 @@ import style from './UserPage.module.css';
 export function UserPage() {
   const { id } = useParams();
   const { pathname } = useLocation();
-  const { keyword, handleInputKeyword } = useKeyword();
+  const { keyword, handleInputKeyword } = useKeyword(id);
   const { search } = useSearch();
 
   const links = [
@@ -21,8 +21,8 @@ export function UserPage() {
   ];
 
   const isActivedUrl = (path: string) => {
-    if (path === '') return `/${id}` === pathname;
-    return `/${id}/${path}` === pathname;
+    if (path === '') return `/users/${id}` === pathname;
+    return `/users/${id}/${path}` === pathname;
   };
 
   const handleEnterTextField = handleEnter(() => {

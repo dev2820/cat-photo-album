@@ -1,6 +1,7 @@
 import { MouseEventHandler } from 'react';
 
 import { HomeLayout } from 'src/layouts/HomeLayout';
+import { LastInquiry } from 'src/components/LastInquiry';
 import { Form, Button } from 'src/components/atoms';
 import { useKeyword } from 'src/hooks/use-keyword';
 import { useSearch } from 'src/hooks/use-search';
@@ -37,6 +38,10 @@ export function HomePage() {
           </Button>
         </Form.FieldSet>
       </main>
+      <footer className={style['footer']}>
+        <p>지난 검색어</p>
+        <LastInquiry></LastInquiry>
+      </footer>
     </HomeLayout>
   );
 }

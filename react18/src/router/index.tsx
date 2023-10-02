@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { App } from 'src/App';
 import { HomePage } from 'src/pages/HomePage';
+import { UserNotExistPage } from 'src/pages/UserNotExistPage';
 import { UserPage } from 'src/pages/UserPage';
 import { ProfilePage } from 'src/pages/ProfilePage';
 import { RepositoryPage } from 'src/pages/RepositoryPage';
@@ -16,7 +17,11 @@ export const router = createBrowserRouter([
         element: <HomePage />
       },
       {
-        path: ':id',
+        path: 'not-exist',
+        element: <UserNotExistPage />
+      },
+      {
+        path: 'users/:id',
         element: <UserPage />,
         children: [
           {

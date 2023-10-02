@@ -54,3 +54,16 @@ export const fetchProfile = async (userId: string): Promise<Profile> => {
   const data = normalizerProfile(rawData);
   return data;
 };
+
+export const fetchProfileExist = async (userId: string): Promise<boolean> => {
+  const response = await fetch(`/api/users/${userId}`, {
+    method: 'HEAD',
+    headers: {
+      Accept: 'application/vnd.github+json',
+      Autorization: `Bearer ${TOKEN}`
+    }
+  });
+
+  if (response.ok) return true;
+  return false;
+};

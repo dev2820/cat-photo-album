@@ -72,6 +72,6 @@ export const fetchRepositories = async (userId: string, { page = 1 }): Promise<R
 
   const rawData: RawRepository[] = await response.json();
   const data = rawData.map(normalizeRepository);
-  console.log(rawData);
+
   return data;
 };
