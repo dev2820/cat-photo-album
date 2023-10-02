@@ -62,7 +62,7 @@ const normalizeOwner = (rawOwner: RawOwner): Owner => {
 };
 
 export const fetchRepositories = async (userId: string, { page = 1 }): Promise<Repository[]> => {
-  const response = await fetch(`/api/users/${userId}/repos?page=${page}`, {
+  const response = await fetch(`/api/users/${userId}/repos?sort=created&page=${page}`, {
     headers: {
       Accept: 'application/vnd.github+json',
       Autorization: `Bearer ${TOKEN}`
@@ -72,6 +72,6 @@ export const fetchRepositories = async (userId: string, { page = 1 }): Promise<R
 
   const rawData: RawRepository[] = await response.json();
   const data = rawData.map(normalizeRepository);
-
+  console.log(rawData);
   return data;
 };
