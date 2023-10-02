@@ -2,11 +2,12 @@ import { MouseEventHandler } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Button, Card, Chip } from 'src/components/atoms';
+import { NotFound } from 'src/components/NotFound';
 import { useRepositories, type Repository } from 'src/hooks/use-repositories';
 import { formatYYYYMMDD } from 'src/utils/date';
+import { abbreviate } from 'src/utils/string';
 
 import style from './RepositoryPage.module.css';
-import { NotFound } from 'src/components/NotFound';
 
 export function RepositoryPage() {
   const { id } = useParams();
@@ -39,6 +40,8 @@ const ErrorView = (error: Response) => {
 };
 
 const Repository = ({ repository }: { repository: Repository }) => {
+  const MAX_DESCRIPTION_LEN = 100;
+
   return (
     <Card className={style['repository']}>
       <div className={style['repository__info']}>
@@ -46,7 +49,9 @@ const Repository = ({ repository }: { repository: Repository }) => {
         <small className={style['created-at']}>
           created at {formatYYYYMMDD(repository.createdAt, { separator: '-' })}
         </small>
-        <p className={style['repository__description']}>{repository.description}</p>
+        <p className={style['repository__description']}>
+          {abbreviate(repository.description, MAX_DESCRIPTION_LEN)}
+        </p>
         <div>{repository.language && <Chip outline={true} text={repository.language} />}</div>
       </div>
       <Button className={style['visit-button']}>
