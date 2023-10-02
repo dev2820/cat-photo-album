@@ -1,5 +1,7 @@
 import { HTMLAttributes } from 'react';
 
+import { toLocale } from 'src/utils/number';
+
 import style from './ItemCount.module.css';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -10,7 +12,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 export const ItemCount = ({ count, label = '', className, ...props }: Props) => {
   return (
     <div className={`${style['item-count']} ${className}`} {...props}>
-      <b className={style.count}>{count}</b>
+      <b className={style.count}>{toLocale(count)}</b>
       {label && <span className={style.label}>{label}</span>}
     </div>
   );
